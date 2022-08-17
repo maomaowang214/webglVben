@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="">
     <Renderer ref="renderer">
       <Camera :position="{ z: 10 }" />
       <Scene>
