@@ -7,13 +7,14 @@ import { isObject } from '/@/utils/is';
 export const noop = () => {};
 
 /**
- * @description:  Set ui mount node
+ * @description:  Set ui mount node 设置ui挂载节点
  */
 export function getPopupContainer(node?: HTMLElement): HTMLElement {
   return (node?.parentNode as HTMLElement) ?? document.body;
 }
 
 /**
+ * 将对象作为参数添加到 URL
  * Add the object as a parameter to the URL
  * @param baseUrl url
  * @param obj
@@ -54,7 +55,7 @@ export function openWindow(
   window.open(url, target, feature.join(','));
 }
 
-// dynamic use hook props
+// dynamic use hook props  动态使用钩子道具
 export function getDynamicProps<T, U>(props: T): Partial<U> {
   const ret: Recordable = {};
 

@@ -11,7 +11,7 @@ export function createFakeUserList() {
       desc: 'manager',
       password: '123456',
       token: 'fakeToken1',
-      homePath: '/dashboard/analysis',
+      homePath: '/webgl',
       roles: [
         {
           roleName: 'Super Admin',

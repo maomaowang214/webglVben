@@ -9,7 +9,7 @@ export function getCommonStoragePrefix() {
   return `${VITE_GLOB_APP_SHORT_NAME}__${getEnv()}`.toUpperCase();
 }
 
-// Generate cache key according to version
+// 根据版本生成缓存键
 export function getStorageShortName() {
   return `${getCommonStoragePrefix()}${`__${pkg.version}`}__`.toUpperCase();
 }
@@ -18,7 +18,7 @@ export function getAppEnvConfig() {
   const ENV_NAME = getConfigFileName(import.meta.env);
 
   const ENV = (import.meta.env.DEV
-    ? // Get the global configuration (the configuration will be extracted independently when packaging)
+    ? // 获取全局配置（打包时会独立提取配置）
       (import.meta.env as unknown as GlobEnvConfig)
     : window[ENV_NAME as any]) as unknown as GlobEnvConfig;
 
