@@ -1,6 +1,6 @@
 <template>
   <div class="w-full h-full">
-    <Renderer ref="renderer" resize="window">
+    <Renderer class="w-full h-full" ref="renderer" resize="window">
       <Camera :position="{ z: 10 }" />
       <Scene>
         <PointLight :position="{ y: 50, z: 50 }" />
