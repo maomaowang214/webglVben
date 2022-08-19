@@ -8,6 +8,7 @@ export function initPane(renderer2: any) {
   scene = renderer2.scene;
   renderer = renderer2.renderer;
   camera = renderer2.camera;
+  console.log(renderer);
 
   pane = new Pane({ title: '基础设置' });
 
@@ -21,7 +22,18 @@ export function initPane(renderer2: any) {
   // 相机参数设置
   setCamera();
   setAmbientLight();
-  addPointLight();
+
+  const point_obj = {
+    title: '点光源',
+    light: 'PointLight',
+  };
+  addPointLight(point_obj);
+
+  const d_obj = {
+    title: '太阳光',
+    light: 'DirectionalLight',
+  };
+  addPointLight(d_obj);
 }
 
 // 相机参数设置
@@ -51,19 +63,46 @@ function setAmbientLight() {
 }
 
 // 添加点光源
-function addPointLight() {
+function addPointLight(obj) {
+  // 点光源
   const f1 = pane.addFolder({
-    title: '点光源',
+    title: obj.title,
   });
   const pointBtn = f1.addButton({
     title: '+',
     label: '新增',
   });
 
+  let pCount = 0;
   pointBtn.on('click', () => {
-    const pLight = new THREE.PointLight(new THREE.Color('#ffffff'));
+    const pLight = new THREE[obj.light](new THREE.Color('#ffffff'));
     pLight.position.set(0, 0, 0);
     scene.add(pLight);
-    console.log('scene', scene);
+
+    const name = 'plight' + pCount;
+    PARAMS[name] = { x: pLight.position.x, y: pLight.position.y, z: pLight.position.z };
+    const color = 'color' + pCount;
+    PARAMS[color] = 0xffffffff;
+
+    f1.addInput(PARAMS, name, {
+      x: { min: -100, max: 100, step: 0.01 },
+      y: { min: -100, max: 100, step: 0.01 },
+      z: { min: -100, max: 100, step: 0.01 },
+    }).on('change', (ev) => {
+      pLight.position.x = ev.value.x;
+      pLight.position.y = ev.value.y;
+      pLight.position.z = ev.value.z;
+    });
+
+    f1.addInput(PARAMS, color, {
+      view: 'color',
+      // color: { alpha: true },
+    }).on('change', (ev) => {
+      console.log(ev);
+
+      pLight.color = new THREE.Color(ev.value);
+    });
+
+    pCount++;
   });
 }
